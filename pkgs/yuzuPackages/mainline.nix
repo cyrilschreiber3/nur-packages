@@ -190,12 +190,5 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       cc0
     ];
-    maintainers = with maintainers; [
-      ashley
-      ivar
-      joshuafern
-      sbruder
-      k900
-    ];
   };
 })
