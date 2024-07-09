@@ -20,5 +20,5 @@ in
     default = yuzuPackages.mainline;
     compat-list = yuzuPackages.compat-list;
     nx_tzdb = yuzuPackages.nx_tzdb;
-  }
+  };
 }
