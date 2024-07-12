@@ -5,9 +5,9 @@ on:
         branches:
             - main
             - master
-    # schedule:
-    #     # rebuild everyday at 4:21
-    #     - cron: "21 4 * * *"
+    schedule:
+        # rebuild everyday at 4:21
+        - cron: "21 4 * * *"
 jobs:
     tests:
         strategy:
