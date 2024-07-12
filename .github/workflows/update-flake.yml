@@ -26,12 +26,9 @@ jobs:
                   pr-labels: | # Labels to be set on the PR
                       dependencies
                       automated
-
-    automerge:
-        runs-on: ubuntu-latest
-        steps:
             - uses: peter-evans/enable-pull-request-automerge@v3
               with:
                   token: ${{ secrets.ACTIONS_PAT }}
-                  pull-request-number: ${{ needs.update.outputs.pull-request-number }}
+                  pull-request-number: ${{ steps.update.outputs.pull-request-number }}
                   merge-method: squash
+            
