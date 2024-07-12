@@ -27,8 +27,8 @@ jobs:
                       dependencies
                       automated
             - name: Automerge update PR
+              if: ${{ steps.update.outputs.pull-request-number != '' }}
               uses: peter-evans/enable-pull-request-automerge@v3
-              if: ${{ steps.update.outputs.pull-request-number < 0 }}
               with:
                   token: ${{ secrets.ACTIONS_PAT }}
                   pull-request-number: ${{ steps.update.outputs.pull-request-number }}
