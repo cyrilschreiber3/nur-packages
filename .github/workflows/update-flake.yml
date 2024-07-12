@@ -7,7 +7,8 @@ on:
 jobs:
     lockfile:
         runs-on: ubuntu-latest
-
+        outputs: 
+            pr-number: ${{ steps.update.outputs.pull-request-number }}
         permissions:
             contents: write # to push the branch for the PR
             pull-requests: write # to open the PR
@@ -18,10 +19,19 @@ jobs:
             - name: Install Nix
               uses: DeterminateSystems/nix-installer-action@main
             - name: Update flake.lock
+              id: update
               uses: DeterminateSystems/update-flake-lock@main
               with:
                   pr-title: "Update flake.lock" # Title of PR to be created
                   pr-labels: | # Labels to be set on the PR
                       dependencies
                       automated
-                      automerge
+
+    automerge:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: peter-evans/enable-pull-request-automerge@v3
+              with:
+                  token: ${{ secrets.ACTIONS_PAT }}
+                  pull-request-number: ${{ needs.update.outputs.pull-request-number }}
+                  merge-method: squash
