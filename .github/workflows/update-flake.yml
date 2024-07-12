@@ -26,7 +26,9 @@ jobs:
                   pr-labels: | # Labels to be set on the PR
                       dependencies
                       automated
-            - uses: peter-evans/enable-pull-request-automerge@v3
+            - name: Automerge update PR
+              uses: peter-evans/enable-pull-request-automerge@v3
+              if: ${{ steps.update.outputs.pull-request-number < 0 }}
               with:
                   token: ${{ secrets.ACTIONS_PAT }}
                   pull-request-number: ${{ steps.update.outputs.pull-request-number }}
