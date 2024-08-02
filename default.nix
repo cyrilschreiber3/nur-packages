@@ -17,7 +17,4 @@ in
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
   yuzu = yuzuPackages.mainline;
-
-  # External packages for caching
-  nerdfonts = pkgs.nerdfonts;
 }
