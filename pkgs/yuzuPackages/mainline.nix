@@ -54,6 +54,10 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
+  patches = [
+    ./vulkan-enum-update.patch
+  ];
+
   nativeBuildInputs = [
     cmake
     glslang
@@ -146,6 +150,14 @@ stdenv.mkDerivation (finalAttrs: {
   qtWrapperArgs = [
     "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
   ];
+
+  postPatch = ''
+    echo "Verifying patch application:"
+    grep -n "VK_DRIVER_ID_MESA_HONEYKRISP" externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h || echo "Patch not applied correctly"
+
+    echo "Contents of vk_enum_string_helper.h after patching:"
+    sed -n '3476,3486p' externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h
+  '';
 
   preConfigure = ''
     # see https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
