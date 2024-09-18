@@ -38,7 +38,7 @@
   versionAtLeast = lib.versionAtLeast;
 
   # Check if we're using Nixpkgs 24.05 or earlier
-  needsPatch = !versionAtLeast lib.version "24.06";
+  needsPatch = versionAtLeast lib.version "24.06";
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "yuzu";

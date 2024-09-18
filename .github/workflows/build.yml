@@ -9,7 +9,7 @@ on:
         # rebuild everyday at 4:21
         - cron: "21 4 * * *"
 jobs:
-    tests:
+    build:
         strategy:
             matrix:
                 # Set this to notify the global nur package registry that changes are
@@ -36,6 +36,7 @@ jobs:
                     - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
                     - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
         runs-on: ubuntu-latest
+        name: Nix ${{ contains(matrix.nixPath, 'nixpkgs-unstable') && 'unstable' || contains(matrix.nixPath, 'nixos-unstable') && 'nixos-unstable' || '24.05' }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
