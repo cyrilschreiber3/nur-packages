@@ -38,7 +38,7 @@
   versionAtLeast = lib.versionAtLeast;
 
   # Check if we're using Nixpkgs 24.05 or earlier
-  needsPatch = versionAtLeast lib.version "24.06";
+  isNixpkgs2405OrEarlier = versionAtLeast lib.version "24.06";
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "yuzu";
@@ -59,7 +59,7 @@ in
       fetchSubmodules = true;
     };
 
-    patches = lib.optionals needsPatch [
+    patches = lib.optionals isNixpkgs2405OrEarlier [
       ./vulkan-enum-update.patch
     ];
 
@@ -190,14 +190,20 @@ in
     };
 
     meta = with lib; {
+      broken = !isNixpkgs2405OrEarlier;
       homepage = "https://yuzu-emu.org";
       changelog = "https://yuzu-emu.org/entry";
       description = "An experimental Nintendo Switch emulator written in C++";
-      longDescription = ''
-        An experimental Nintendo Switch emulator written in C++.
-        Using the mainline branch is recommended for general usage.
-        Using the early-access branch is recommended if you would like to try out experimental features, with a cost of stability.
-      '';
+      longDescription =
+        ''
+          An experimental Nintendo Switch emulator written in C++.
+          Using the mainline branch is recommended for general usage.
+          Using the early-access branch is recommended if you would like to try out experimental features, with a cost of stability.
+        ''
+        + lib.optionalString (!isNixpkgs2405OrEarlier) ''
+
+          **Note:** This package is currently marked as broken for Nixpkgs versions other than 24.05 due to build issues.
+        '';
       mainProgram = "yuzu";
       platforms = ["x86_64-linux"];
       license = with licenses; [
