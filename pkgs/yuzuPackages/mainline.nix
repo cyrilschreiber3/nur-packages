@@ -156,7 +156,7 @@ in
       "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
     ];
 
-    postPatch = lib.optionals needsPatch ''
+    postPatch = lib.optionals isNixpkgs2405OrEarlier ''
       echo "Verifying patch application:"
       grep -n "VK_DRIVER_ID_MESA_HONEYKRISP" externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h || echo "Patch not applied correctly"
 
