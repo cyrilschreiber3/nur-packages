@@ -38,7 +38,7 @@
   versionAtLeast = lib.versionAtLeast;
 
   # Check if we're using Nixpkgs 24.05 or earlier
-  isNixpkgs2405OrEarlier = versionAtLeast lib.version "24.06";
+  isNixpkgs2405OrLater = versionAtLeast lib.version "24.06";
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "yuzu";
@@ -59,7 +59,7 @@ in
       fetchSubmodules = true;
     };
 
-    patches = lib.optionals isNixpkgs2405OrEarlier [
+    patches = lib.optionals isNixpkgs2405OrLater [
       ./vulkan-enum-update.patch
     ];
 
@@ -156,7 +156,7 @@ in
       "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib"
     ];
 
-    postPatch = lib.optionals isNixpkgs2405OrEarlier ''
+    postPatch = lib.optionals isNixpkgs2405OrLater ''
       echo "Verifying patch application:"
       grep -n "VK_DRIVER_ID_MESA_HONEYKRISP" externals/Vulkan-Utility-Libraries/include/vulkan/vk_enum_string_helper.h || echo "Patch not applied correctly"
 
@@ -190,7 +190,7 @@ in
     };
 
     meta = with lib; {
-      broken = !isNixpkgs2405OrEarlier;
+      broken = isNixpkgs2405OrLater;
       homepage = "https://yuzu-emu.org";
       changelog = "https://yuzu-emu.org/entry";
       description = "An experimental Nintendo Switch emulator written in C++";
@@ -200,7 +200,7 @@ in
           Using the mainline branch is recommended for general usage.
           Using the early-access branch is recommended if you would like to try out experimental features, with a cost of stability.
         ''
-        + lib.optionalString (!isNixpkgs2405OrEarlier) ''
+        + lib.optionalString isNixpkgs2405OrLater ''
 
           **Note:** This package is currently marked as broken for Nixpkgs versions other than 24.05 due to build issues.
         '';
