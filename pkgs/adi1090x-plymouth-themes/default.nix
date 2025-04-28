@@ -73,8 +73,8 @@ in
       scaled_nixos_image = nixos_image.SetScale(nixos_image.GetWidth() * 0.1, nixos_image.GetHeight() * 0.1); # scale the image to 10% of its original size\
       nixos_sprite = Sprite();\
       nixos_sprite.SetImage(scaled_nixos_image);\
-      nixos_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - nixos_image.GetWidth() / 2)); # center the image horizontally\
-      nixos_sprite.SetY(Window.GetHeight() - nixos_image.GetHeight() - 50); # display just above the bottom of the screen\
+      nixos_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - scaled_nixos_image.GetWidth() / 2)); # center the image horizontally\
+      nixos_sprite.SetY(Window.GetHeight() - scaled_nixos_image.GetHeight() - 50); # display just above the bottom of the screen\
       ' {} \;
         fi
       done
