@@ -56,11 +56,7 @@ in
     ];
 
     sourceRoot = ".";
-    unpackCmd = ''
-      if [[ $curSrc != *'-source' ]]; then
-        tar xzf $curSrc
-      fi
-    '';
+    unpackCmd = "tar xzf $curSrc";
 
     installPhase = ''
       mkdir -p $out/share/plymouth/themes
