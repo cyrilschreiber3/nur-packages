@@ -70,7 +70,7 @@ in
           find $out/share/plymouth/themes/$theme -name \*.script -exec sed -i '$a\
       # display nixos logo\
       nixos_image = Image("nixos-logo.png"); # change filename accordingly\
-      scaled_nixos_image = nixos_image.SetScale(nixos_image.GetWidth() * 0.1, nixos_image.GetHeight() * 0.1); # scale the image to 10% of its original size\
+      scaled_nixos_image = nixos_image.Scale(nixos_image.GetWidth() * 0.1, nixos_image.GetHeight() * 0.1); # scale the image to 10% of its original size\
       nixos_sprite = Sprite();\
       nixos_sprite.SetImage(scaled_nixos_image);\
       nixos_sprite.SetX(Window.GetX() + (Window.GetWidth() / 2 - scaled_nixos_image.GetWidth() / 2)); # center the image horizontally\
