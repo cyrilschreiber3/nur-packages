@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nodePackages,
   plugins ? [],
-  prettier-plugin-go-template,
 }: let
   prettier = nodePackages.prettier;
 in
