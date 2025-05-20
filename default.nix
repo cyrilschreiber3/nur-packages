@@ -15,7 +15,7 @@ in {
 
   adi1090x-plymouth-themes = pkgs.callPackage ./pkgs/adi1090x-plymouth-themes {};
   example-package = pkgs.callPackage ./pkgs/example-package {};
-  media-processor = pkgs.callPackage ./pkgs/media-processor {};
+  media-processor = import ./pkgs/media-processor {inherit pkgs;};
   prettier-with-plugins = pkgs.callPackage ./pkgs/prettier-with-plugins {};
   prettier-plugin-tailwindcss = pkgs.callPackage ./pkgs/prettier-with-plugins/prettier-plugin-tailwindcss.nix {};
   yuzu = yuzuPackages.mainline;

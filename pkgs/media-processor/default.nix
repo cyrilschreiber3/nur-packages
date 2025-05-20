@@ -6,16 +6,22 @@
     tag = "v0.1.0";
     hash = "sha256-TVCdir41A4zk8cR/IejfDKGhuGUCX4w1OlnWdL/Bl28=";
   };
+  mediaProcessorLock = builtins.fromJSON (builtins.readFile "${mediaProcessorSrc}/flake.lock");
+  root = mediaProcessorLock.nodes.${mediaProcessorLock.root};
+  inherit (mediaProcessorLock.nodes.${root.inputs.gomod2nix}.locked) owner repo rev narHash;
 
-  flake-compat = pkgs.fetchFromGitHub {
-    owner = "nix-community";
-    repo = "flake-compat";
-    rev = "0f158086a2ecdbb138cd0429410e44994f1b7e4b";
-    hash = "sha256-5SSSZ/oQkwfcAz/o/6TlejlVGqeK08wyREBQ5qFFPhM=";
+  gomod2nixSrc = pkgs.fetchFromGitHub {
+    owner = owner;
+    repo = repo;
+    rev = rev;
+    hash = narHash;
   };
 
-  mediaProcessor = import flake-compat {
-    src = mediaProcessorSrc;
+  pkgsWithOverlay = import pkgs.path {
+    inherit (pkgs) system;
+    overlays = [
+      (import "${gomod2nixSrc}/overlay.nix")
+    ];
   };
 in
-  mediaProcessor.defaultNix.packages.${pkgs.system}.default
+  pkgsWithOverlay.callPackage "${mediaProcessorSrc}/default.nix" {}
