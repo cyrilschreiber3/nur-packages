@@ -1,5 +1,5 @@
 # Import a flake from the media-processor directory using flake-compat
-{pkgs}: let
+{pkgs, ...}: let
   mediaProcessorSrc = pkgs.fetchFromGitHub {
     owner = "cyrilschreiber3";
     repo = "media-processor";
