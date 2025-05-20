@@ -7,14 +7,13 @@
     hash = "sha256-TVCdir41A4zk8cR/IejfDKGhuGUCX4w1OlnWdL/Bl28=";
   };
 
-  mediaProcessor =
-    (import (pkgs.fetchFromGitHub {
-        owner = "edolstra";
-        repo = "flake-compat";
-        rev = "9100a0f413b0c601e0533d1d94ffd501ce2e7885";
-        hash = "sha256-CIVLLkVgvHYbgI2UpXvIIBJ12HWgX+fjA8Xf8PUmqCY=";
-      }) {
-        src = mediaProcessorSrc;
-      }).defaultNix;
+  flake-compat = fetchTarball {
+    url = "https://github.com/nix-community/flake-compat/archive/0f158086a2ecdbb138cd0429410e44994f1b7e4b.tar.gz";
+    sha256 = "sha256-5SSSZ/oQkwfcAz/o/6TlejlVGqeK08wyREBQ5qFFPhM=";
+  };
+
+  mediaProcessor = import flake-compat {
+    src = mediaProcessorSrc;
+  };
 in
-  mediaProcessor.packages.${pkgs.system}.default
+  mediaProcessor.defaultNix.packages.${pkgs.system}.default
