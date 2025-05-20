@@ -1,27 +1,17 @@
-# Import a flake from the media-processor directory using flake-compat
 {pkgs, ...}: let
-  mediaProcessorSrc = pkgs.fetchFromGitHub {
+  # Function to get a package from a flake
+  getPackageFromFlake = {
+    owner,
+    repo,
+    rev,
+    package ? "default",
+  }:
+    (builtins.getFlake "github:${owner}/${repo}?rev=${rev}").packages.${pkgs.system}.${package};
+
+  mediaProcessorRev = "1bd397ff3fdb821a29dc3675e19da32b0c686994";
+in
+  getPackageFromFlake {
     owner = "cyrilschreiber3";
     repo = "media-processor";
-    tag = "v0.1.0";
-    hash = "sha256-TVCdir41A4zk8cR/IejfDKGhuGUCX4w1OlnWdL/Bl28=";
-  };
-  mediaProcessorLock = builtins.fromJSON (builtins.readFile "${mediaProcessorSrc}/flake.lock");
-  root = mediaProcessorLock.nodes.${mediaProcessorLock.root};
-  inherit (mediaProcessorLock.nodes.${root.inputs.gomod2nix}.locked) owner repo rev narHash;
-
-  gomod2nixSrc = pkgs.fetchFromGitHub {
-    owner = owner;
-    repo = repo;
-    rev = rev;
-    hash = narHash;
-  };
-
-  pkgsWithOverlay = import pkgs.path {
-    inherit (pkgs) system;
-    overlays = [
-      (import "${gomod2nixSrc}/overlay.nix")
-    ];
-  };
-in
-  pkgsWithOverlay.callPackage "${mediaProcessorSrc}/default.nix" {}
+    rev = mediaProcessorRev;
+  }
