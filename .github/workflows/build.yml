@@ -60,7 +60,7 @@ jobs:
       - name: Check evaluation
         run: |
           nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org,github:numtide/,github:gomod2nix/ \
+            --allowed-uris https://static.rust-lang.org,github:numtide,github:gomod2nix \
             --option restrict-eval true \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \
