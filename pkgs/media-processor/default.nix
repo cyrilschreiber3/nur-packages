@@ -8,7 +8,7 @@
   }:
     (builtins.getFlake "github:${owner}/${repo}?rev=${rev}").packages.${pkgs.system}.${package};
 
-  mediaProcessorRev = "1bd397ff3fdb821a29dc3675e19da32b0c686994";
+  mediaProcessorRev = "eb3df6fd86657690306298dfea74fd3c1702f52e";
 in
   getPackageFromFlake {
     owner = "cyrilschreiber3";
