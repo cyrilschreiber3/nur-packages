@@ -17,5 +17,6 @@ in {
   example-package = pkgs.callPackage ./pkgs/example-package {};
   media-processor = pkgs.callPackage ./pkgs/media-processor {};
   prettier-plugin-tailwindcss = pkgs.callPackage ./pkgs/prettier-plugins/prettier-plugin-tailwindcss.nix {};
+  prettier-plugin-tailwindcss-extra-plus = pkgs.callPackage ./pkgs/prettier-plugins/prettier-plugin-tailwindcss-extra-plus.nix {};
   yuzu = yuzuPackages.mainline;
 }
