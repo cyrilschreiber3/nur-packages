@@ -39,7 +39,7 @@ jobs:
     name: ${{ contains(matrix.nixPath, 'nixpkgs-unstable') && 'Nixpkgs Unstable' || contains(matrix.nixPath, 'nixos-unstable') && 'NixOS Unstable' || 'NixOS 24.05' }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
