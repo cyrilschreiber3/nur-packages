@@ -1,48 +1,36 @@
 {
+  buildNpmPackage,
   fetchFromGitHub,
-  nodejs,
-  pnpm_9,
-  stdenv,
-}: let
+}:
+buildNpmPackage rec {
+  pname = "prettier-plugin-tailwindcss-extra-plus";
   version = "0.3.1";
-  name = "prettier-plugin-tailwindcss-extra-plus";
-in
-  stdenv.mkDerivation (finalAttrs: {
-    pname = name;
-    version = version;
 
-    src = fetchFromGitHub {
-      owner = "joefitzgerald";
-      repo = "prettier-plugin-tailwindcss-extra-plus";
-      rev = "v${version}";
-      sha256 = "sha256-iziOV950ltw5hT9Gx5sFzJVrG8D73bejrHtCzrmbqcc=";
-    };
+  src = fetchFromGitHub {
+    owner = "joefitzgerald";
+    repo = "prettier-plugin-tailwindcss-extra-plus";
+    rev = "v${version}";
+    sha256 = "sha256-iziOV950ltw5hT9Gx5sFzJVrG8D73bejrHtCzrmbqcc=";
+  };
 
-    nativeBuildInputs = [
-      nodejs
-      pnpm_9.configHook
-    ];
+  npmDepsHash = "sha256-xei/0BwwqdKsMp7E3iMU5kAybZHd1a7ZgjbKYb2eWYo=";
 
-    pnpmDeps = pnpm_9.fetchDeps {
-      inherit (finalAttrs) pname version src;
-      fetcherVersion = 2;
-      hash = "sha256-wHCCwKr4lup4W1wWn/5F2G+KxA8i2lPihM0EI62TMrU=";
-    };
+  dontNpmPrune = true;
 
-    buildPhase = ''
-      pnpm run build
-    '';
+  postPatch = ''
+    ln -s ${./prettier-plugin-tailwindcss-extra-plus-fix-deps.json} ./package-lock.json
+  '';
 
-    installPhase = ''
-      mkdir -p $out/lib/node_modules/${name}/dist
-      cp -r dist $out/lib/node_modules/${name}
-      cp -r node_modules $out/lib/node_modules/${name}
-      chmod -R +x $out/lib
-    '';
+  # Fixes error: Cannot find module 'prettier'
+  postInstall = ''
+    pushd "$nodeModulesPath"
+    find -mindepth 1 -maxdepth 1 -type d -print0 | grep --null-data -Exv "\./(ulid|prettier)" | xargs -0 rm -rfv
+    popd
+  '';
 
-    meta = {
-      description = "Adds Tailwind class sorting to a set of languages that are not yet supported by prettier.";
-      mainProgram = name;
-      homepage = "https://github.com/joefitzgerald/prettier-plugin-tailwindcss-extra-plus";
-    };
-  })
+  meta = {
+    description = "Adds Tailwind class sorting to a set of languages that are not yet supported by prettier.";
+    mainProgram = pname;
+    homepage = "https://github.com/joefitzgerald/prettier-plugin-tailwindcss-extra-plus";
+  };
+}
