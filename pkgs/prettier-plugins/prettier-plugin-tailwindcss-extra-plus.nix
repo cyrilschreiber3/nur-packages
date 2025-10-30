@@ -1,7 +1,7 @@
 {
   fetchFromGitHub,
   nodejs,
-  pnpm,
+  pnpm_9,
   stdenv,
 }: let
   version = "0.3.1";
@@ -20,13 +20,13 @@ in
 
     nativeBuildInputs = [
       nodejs
-      pnpm.configHook
+      pnpm_9.configHook
     ];
 
-    pnpmDeps = pnpm.fetchDeps {
+    pnpmDeps = pnpm_9.fetchDeps {
       inherit (finalAttrs) pname version src;
       fetcherVersion = 2;
-      hash = "sha256-nKqDX7ahhrfer2cZ6Mt2CuL/481EBzdKY9OFGczAmm4=";
+      hash = "sha256-wHCCwKr4lup4W1wWn/5F2G+KxA8i2lPihM0EI62TMrU=";
     };
 
     buildPhase = ''
