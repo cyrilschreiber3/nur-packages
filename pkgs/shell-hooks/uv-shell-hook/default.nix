@@ -1,11 +1,15 @@
 {
   makeSetupHook,
   uv,
+  writeShellScriptBin,
 }:
 makeSetupHook {
   name = "uv-shell-hook";
 
-  propagatedBuildInputs = [uv];
+  propagatedBuildInputs = [
+    uv
+    (writeShellScriptBin "uv-env-info" (builtins.readFile ./bin/uv-env-info.sh))
+  ];
 
   substitutions = {
     uvBin = "${uv}/bin/uv";
@@ -13,4 +17,4 @@ makeSetupHook {
 
   passthru.provides.setupHook = true;
 }
-./uv-shell-hook.sh
+./bin/uv-shell-hook.sh
