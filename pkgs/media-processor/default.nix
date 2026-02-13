@@ -6,7 +6,7 @@
     rev,
     package ? "default",
   }:
-    (builtins.getFlake "github:${owner}/${repo}?rev=${rev}").packages.${pkgs.system}.${package};
+    (builtins.getFlake "github:${owner}/${repo}?rev=${rev}").packages.${pkgs.stdenv.hostPlatform.system}.${package};
 
   mediaProcessorRev = "eb3df6fd86657690306298dfea74fd3c1702f52e";
 in
