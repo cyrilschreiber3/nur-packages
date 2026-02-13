@@ -8,7 +8,7 @@ makeSetupHook {
 
   propagatedBuildInputs = [
     uv
-    (writeShellScriptBin "uv-env-info" (builtins.readFile ./bin/uv-env-info.sh))
+    (writeShellScriptBin "uv-env-info" (builtins.readFile ./uv-env-info.sh))
   ];
 
   substitutions = {
@@ -17,4 +17,4 @@ makeSetupHook {
 
   passthru.provides.setupHook = true;
 }
-./bin/uv-shell-hook.sh
+./uv-shell-hook.sh
