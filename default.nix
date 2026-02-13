@@ -18,5 +18,6 @@ in {
   media-processor = pkgs.callPackage ./pkgs/media-processor {};
   prettier-plugin-tailwindcss = pkgs.callPackage ./pkgs/prettier-plugins/prettier-plugin-tailwindcss.nix {};
   prettier-plugin-tailwindcss-extra-plus = pkgs.callPackage ./pkgs/prettier-plugins/prettier-plugin-tailwindcss-extra-plus.nix {};
+  uvShellHook = pkgs.callPackage ./pkgs/shell-hooks/uv-shell-hook {};
   yuzu = yuzuPackages.mainline;
 }
