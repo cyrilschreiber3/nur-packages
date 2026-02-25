@@ -181,7 +181,7 @@ in
       changelog = "https://github.com/ninjadev64/OpenDeck/releases/tag/v${version}";
       license = with lib.licenses; [gpl3Plus];
       maintainers = with lib.maintainers; [pluiedev];
-      platforms = with lib.platforms; linux ++ darwin ++ windows;
+      platforms = with lib.platforms; linux;
       mainProgram = "opendeck";
     };
   }
