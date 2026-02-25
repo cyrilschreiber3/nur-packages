@@ -16,6 +16,7 @@ in {
   adi1090x-plymouth-themes = pkgs.callPackage ./pkgs/adi1090x-plymouth-themes {};
   example-package = pkgs.callPackage ./pkgs/example-package {};
   media-processor = pkgs.callPackage ./pkgs/media-processor {};
+  opendeck = pkgs.callPackage ./pkgs/opendeck {};
   prettier-plugin-tailwindcss = pkgs.callPackage ./pkgs/prettier-plugins/prettier-plugin-tailwindcss.nix {};
   prettier-plugin-tailwindcss-extra-plus = pkgs.callPackage ./pkgs/prettier-plugins/prettier-plugin-tailwindcss-extra-plus.nix {};
   uvShellHook = pkgs.callPackage ./pkgs/shell-hooks/uv-shell-hook {};
