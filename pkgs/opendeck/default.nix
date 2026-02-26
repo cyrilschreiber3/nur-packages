@@ -54,7 +54,7 @@
 
   # Vendor the starterpack plugin's Cargo dependencies (built separately via build.rs/build.ts)
   pluginCargoDeps = rustPlatform.importCargoLock {
-    lockFile = src + "/plugins/com.amansprojects.starterpack.sdPlugin/Cargo.lock";
+    lockFile = ./plugin-Cargo.lock;
     outputHashes = {
       "enigo-0.6.1" = "sha256-zcxgs30L5dQiq/tJNUla6rwZvS2FGOc0O7tTDKifLPo=";
     };
