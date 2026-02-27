@@ -178,8 +178,9 @@ in
     '';
 
     meta = {
-      broken = lib.versionOlder lib.version "26.04";
-      preferLocalBuild = true; # The hash of the bundled Deno deps changed based on your nixpkgs version, so it's easier to just build locally
+      # broken = lib.versionOlder lib.version "26.04";
+      broken = true; # The hash of the bundled Deno deps changed based on your nixpkgs version, so it's easier to just build locally
+      preferLocalBuild = true;
       description = "Cross-platform desktop application that provides functionality for stream controller devices";
       homepage = "https://github.com/ninjadev64/OpenDeck";
       changelog = "https://github.com/ninjadev64/OpenDeck/releases/tag/v${version}";
