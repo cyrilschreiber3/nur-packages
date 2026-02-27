@@ -137,7 +137,10 @@ in
 
     denoDeps = patchedDeno.fetchDeps {
       inherit pname src;
-      hash = "sha256-gFvUH2I0+EkA1LrrgLfGX+LgITSz1K7ehVzv67saEqc=";
+      # to build in CI
+      hash = "sha256-/q4zFuVi8evRHqWbhLtZXa4iCysFrtsky1uiRsNSC+g=";
+      # to build locally
+      # hash = "sha256-gFvUH2I0+EkA1LrrgLfGX+LgITSz1K7ehVzv67saEqc=";
       denoInstallFlags = ["--allow-scripts"];
     };
 
