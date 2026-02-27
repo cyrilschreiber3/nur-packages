@@ -175,11 +175,8 @@ in
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libayatana-appindicator]}
     '';
 
-    meta = let
-      # Check if we're using Nixpkgs 26.05 or earlier
-      isNixpkgs2511orEarlier = not (versionAtLeast lib.version "26.04");
-    in {
-      broken = isNixpkgs2511orEarlier;
+    meta = {
+      broken = lib.versionOlder lib.version "26.05";
       description = "Cross-platform desktop application that provides functionality for stream controller devices";
       homepage = "https://github.com/ninjadev64/OpenDeck";
       changelog = "https://github.com/ninjadev64/OpenDeck/releases/tag/v${version}";
