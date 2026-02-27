@@ -60,7 +60,7 @@
     };
   };
 in
-  rustPlatform.buildRustPackage {
+  rustPlatform.buildRustPackage rec {
     inherit pname version src;
 
     postPatch = ''
