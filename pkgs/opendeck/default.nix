@@ -135,12 +135,11 @@ in
         --replace-fail '"--lock=target/deno.lock",' '"--no-lock",'
     '';
 
+    denoDepsHash = "sha256-gFvUH2I0+EkA1LrrgLfGX+LgITSz1K7ehVzv67saEqc=";
+
     denoDeps = patchedDeno.fetchDeps {
       inherit pname src;
-      # to build in CI
-      hash = "sha256-/q4zFuVi8evRHqWbhLtZXa4iCysFrtsky1uiRsNSC+g=";
-      # to build locally
-      # hash = "sha256-gFvUH2I0+EkA1LrrgLfGX+LgITSz1K7ehVzv67saEqc=";
+      hash = denoDepsHash;
       denoInstallFlags = ["--allow-scripts"];
     };
 
@@ -180,6 +179,7 @@ in
 
     meta = {
       broken = lib.versionOlder lib.version "26.04";
+      preferLocalBuild = true; # The hash of the bundled Deno deps changed based on your nixpkgs version, so it's easier to just build locally
       description = "Cross-platform desktop application that provides functionality for stream controller devices";
       homepage = "https://github.com/ninjadev64/OpenDeck";
       changelog = "https://github.com/ninjadev64/OpenDeck/releases/tag/v${version}";
