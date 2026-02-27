@@ -176,7 +176,7 @@ in
     '';
 
     meta = {
-      broken = lib.versionOlder lib.version "26.05";
+      broken = lib.versionOlder lib.version "26.04";
       description = "Cross-platform desktop application that provides functionality for stream controller devices";
       homepage = "https://github.com/ninjadev64/OpenDeck";
       changelog = "https://github.com/ninjadev64/OpenDeck/releases/tag/v${version}";
